@@ -6,6 +6,5 @@ list[1] = str(list[1])
 print(type(list[1]))
 print()
 list[2].append(2**8)
-list[3] = (2**10)%2
+list[3] = ((2**10)%2 == 0, )
 print(list)
-print('adsadsa"adsdsa"asdasdsa')
