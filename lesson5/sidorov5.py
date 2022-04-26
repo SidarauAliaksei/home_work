@@ -52,6 +52,16 @@ def change_passport(age: int) -> str:
         return "Don't forget to replace your passport after 45 years."
     return ""
 
+def clean(name:str) -> str:
+    """Removes space in a string.
+
+    :param: name: name(str) -> person's name
+    :rtype: str
+    :return: removes space at the beginning and end of a string
+
+    """
+    transform_name = name.strip()
+    return transform_name
 
 def main() -> str:
     """Checks the entered name and the entered age of the user for the correctness of the input.
@@ -69,15 +79,15 @@ def main() -> str:
     (for age values 15-16, 25-26, 45-46) or error text
 
     """
-    message = ''
+    message = ""
 
-    name = input("Enter your name: ").strip().capitalize()
+    name = input("Enter your name: ").capitalize()
     valid_n = validate_name(name)
     while valid_n != "":
         print(valid_n)
-        name = input("Enter you name: ").strip().capitalize()
+        name = input("Enter your name: ").capitalize()
         valid_n = validate_name(name)
-    message += f"Hello, {name}! "
+    message += f"Hello, {clean(name)}! "
 
     age = int(input("Enter your age: "))
     valid_a = validate_age(age)
@@ -94,3 +104,5 @@ def main() -> str:
 
 if __name__ == '__main__':
     print(main())
+
+
