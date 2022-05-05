@@ -10,9 +10,13 @@ class Car(ABC):
         self.color = color
         self.current_speed = 0
         self.max_speed = 100
+        self.__seats = 4
 
     def type_vehical(self):
         return 'Я - машина.'
+
+    def amount_seats(self):
+        return f'Мое количество пассажирских мест - {self.__seats}.'
 
     def info(self):
         if self.color.endswith('ий'):
@@ -102,12 +106,18 @@ class Airplane(ABC):
         self.brand = brand
         self.model = model
         self.color = color
+        self.__engines = 2
+
+
 
         self.current_height = 0
         self.max_height = 15000
 
         self.current_speed = 0
         self.max_speed = 850
+
+    def amount_engines(self):
+        return f'У меня {self.__engines} двигателя.'
 
     def type_vehical(self):
         return 'Я - самолет.'
@@ -197,6 +207,7 @@ class Eagle(Airplane):
 def main():
     audi1 = Audi('Audi', 'a4', '2016', 'белый')
     print(audi1.info())
+    print(audi1.amount_seats())
     print(audi1.begin_move())
     print(audi1.emergency_signal())
     print()
