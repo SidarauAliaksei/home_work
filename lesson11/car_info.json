@@ -1,0 +1,44 @@
+[
+    {
+        "brand": "Audi",
+        "model": "a4",
+        "year": "2020",
+        "color": "белый",
+        "max_speed": 250
+    },
+    {
+        "brand": "Audi",
+        "model": "rs8",
+        "year": "2020",
+        "color": "черный",
+        "max_speed": 270
+    },
+    {
+        "brand": "Mercedes",
+        "model": "gl63",
+        "year": "2020",
+        "color": "синий",
+        "max_speed": 250
+    },
+    {
+        "brand": "Mercedes",
+        "model": "cla",
+        "year": "2020",
+        "color": "желтый",
+        "max_speed": 240
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "taos",
+        "year": "2016",
+        "color": "белый",
+        "max_speed": 180
+    },
+    {
+        "brand": "Volkswagen",
+        "model": "polo",
+        "year": "2022",
+        "color": "синий",
+        "max_speed": 160
+    }
+]
