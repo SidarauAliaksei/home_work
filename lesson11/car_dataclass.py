@@ -1,20 +1,20 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict, field
 import json
 import os
 
 
-@dataclass
+@dataclass(order=True)
 class Car(ABC):
     current_speed = 0
     max_speed = 100
     vehicle = 'Машина'
     seats = 5
 
-    brand: str
-    model: str
-    year: str
-    color: str
+    brand: str = field(compare=False)
+    model: str = field(compare=False)
+    year: int = field(compare=True)
+    color: str = field(compare=False)
 
     @classmethod
     def type_vehicle(cls):
@@ -70,13 +70,13 @@ class Car(ABC):
         pass
 
 
-@dataclass
+@dataclass(order=True)
 class Audi(Car):
     max_speed = 250
-    brand: str
-    model: str
-    year: str
-    color: str
+    model: str = field(compare=False)
+    year: int = field(compare=True)
+    color: str = field(compare=False)
+    brand: str = field(compare=False)
 
     def brand_model(self):
         return self.brand, self.model
@@ -90,13 +90,13 @@ class Audi(Car):
         return 'Включен режим ECON.'
 
 
-@dataclass
+@dataclass(order=True)
 class Mercedes(Car):
     max_speed = 240
-    brand: str
-    model: str
-    year: str
-    color: str
+    brand: str = field(compare=False)
+    model: str = field(compare=False)
+    year: int = field(compare=True)
+    color: str = field(compare=False)
 
     def brand_model(self):
         return self.brand, self.model
@@ -110,13 +110,13 @@ class Mercedes(Car):
         return 'Машина припаркуется автоматически.'
 
 
-@dataclass
+@dataclass(order=True)
 class Volkswagen(Car):
     max_speed = 180
-    brand: str
-    model: str
-    year: str
-    color: str
+    brand: str = field(compare=False)
+    model: str = field(compare=False)
+    year: int = field(compare=True)
+    color: str = field(compare=False)
 
     def brand_model(self):
         return self.brand, self.model
@@ -131,54 +131,37 @@ class Volkswagen(Car):
 
 
 def create_car():
-    audi_q5 = Audi('Audi', 'Q5', '2022', 'синий')
-    mercedes_cla250 = Mercedes('Mercedes', 'CLA250', '2020', 'белый')
-    volkswagen_taos = Volkswagen('Volkwagen', 'Polo', '2018', 'черный')
-    car_list1 = [
-        {
-            'brand': audi_q5.brand,
-            'model': audi_q5.model,
-            'year': audi_q5.year,
-            'color': audi_q5.color
-        },
-
-        {
-            'brand': mercedes_cla250.brand,
-            'model': mercedes_cla250.model,
-            'year': mercedes_cla250.year,
-            'color': mercedes_cla250.color
-        },
-        {
-            'brand': volkswagen_taos.brand,
-            'model': volkswagen_taos.model,
-            'year': volkswagen_taos.year,
-            'color': volkswagen_taos.color
-        }
-    ]
+    audi_q5 = Audi('Audi', 'Q5', 2022, 'синий')
+    mercedes_cla250 = Mercedes('Mercedes', 'CLA250', 2020, 'белый')
+    volkswagen_taos = Volkswagen('Volkwagen', 'Polo', 2022, 'черный')
+    car_list = [asdict(audi_q5), asdict(mercedes_cla250), asdict(volkswagen_taos)]
 
     def where_json(file_name):
         return os.path.exists(file_name)
 
     if where_json('car_list.json'):
         with open('car_list.json', 'w') as f:
-            json.dump(car_list1, f, indent=4, ensure_ascii=False)
+            json.dump(car_list, f, indent=4, ensure_ascii=False)
     else:
         with open('car_list.json', 'w') as f:
-            json.dump(car_list1, f, indent=4, ensure_ascii=False)
+            json.dump(car_list, f, indent=4, ensure_ascii=False)
 
 
 def main():
-    audi1 = Audi('Audi', 'a4', '2020', 'белый')
-    audi2 = Audi('Audi', 'rs8', '2020', 'черный')
+    audi1 = Audi('Audi', 'a4', 2020, 'белый')
+    audi2 = Audi('Audi', 'rs8', 2020, 'черный')
     audi2.get_max_speed = 270
+    print(audi1 == audi2)
 
-    mercedes1 = Mercedes('Mercedes', 'gl63', '2020', 'синий')
+    mercedes1 = Mercedes('Mercedes', 'gl63', 2022, 'синий')
     mercedes1.get_max_speed = 250
-    mercedes2 = Mercedes('Mercedes', 'cla', '2020', 'желтый')
+    mercedes2 = Mercedes('Mercedes', 'cla', 2020, 'желтый')
+    print(mercedes1 < mercedes2)
 
-    volkswagen1 = Volkswagen('Volkswagen', 'taos', '2016', 'белый')
-    volkswagen2 = Volkswagen('Volkswagen', 'polo', '2022', 'синий')
+    volkswagen1 = Volkswagen('Volkswagen', 'taos', 2016, 'белый')
+    volkswagen2 = Volkswagen('Volkswagen', 'polo', 2022, 'синий')
     volkswagen2.get_max_speed = 160
+    print(volkswagen1 < volkswagen2)
 
     car_lst = [{
         'brand': audi1.brand,
@@ -227,17 +210,6 @@ def main():
 
     with open('car_info.json', 'w') as f:
         json.dump(car_lst, f, indent=4, ensure_ascii=False)
-
-    print()
-
-    car_year = [audi1.year,
-                audi2.year,
-                mercedes1.year,
-                mercedes2.year,
-                volkswagen1.year,
-                volkswagen2.year,
-                ]
-    print(f'Самая новая машина из списка была создана в {max(car_year)} году.')
 
     print()
 
