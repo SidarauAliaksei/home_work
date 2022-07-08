@@ -1,6 +1,7 @@
 from Pages.base_page import BasePage
 from Locators.main_page_loc import MainPageLoc
 from Locators.basket_page_loc import BasketPageLoc
+import time
 
 
 class BasketPage(BasePage):
@@ -18,3 +19,7 @@ class BasketPage(BasePage):
     def validate_basket_page(self):
         basket_page_url = self.chrome.current_url
         assert basket_page_url == BasketPageLoc.basket_url_loc, 'The url of the basket page does not match'
+
+    def verify_basket_page(self):
+        basket_page_text = self.chrome.find_element(*BasketPageLoc.basket_info_loc).text
+        assert basket_page_text == 'Your shopping cart'
