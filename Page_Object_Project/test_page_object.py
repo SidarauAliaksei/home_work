@@ -4,8 +4,7 @@ from selenium import webdriver
 from Pages.main_page import MainPage
 from Pages.login_page import LoginPage
 from Pages.basket_page import BasketPage
-
-
+from Pages.contact_us_page import ContactUsPage
 
 
 @pytest.fixture
@@ -24,6 +23,7 @@ def test_guest_can_open_login_page(open_browser):
         main_page.verify_login_link()
         main_page.open_login_page()
         login_page = LoginPage(browser, url=browser.current_url)
+        login_page.open()
         login_page.verify_login_link()
     finally:
         browser.quit()
@@ -98,4 +98,34 @@ def test_check_validate_main_page(open_browser):
         main_page.validate_main_page()
     finally:
         time.sleep(3)
+        browser.quit()
+
+
+#
+def test_open_contact_us_page(open_browser):
+    link = 'http://automationpractice.com/index.php'
+    main_page = MainPage(browser, link)
+    try:
+        main_page.open()
+        main_page.contact_us_page()
+        contact_us_page = \
+            ContactUsPage(browser, url=browser.current_url)
+        contact_us_page.check_customer_service_contact_us()
+
+    finally:
+        time.sleep(3)
+        browser.quit()
+
+
+def test_guest_can_open_basket_page(open_browser):
+    link = "http://automationpractice.com/index.php"
+    main_page = MainPage(browser, link)
+
+    try:
+        main_page.open()
+        main_page.open_basket_page()
+        basket_page = BasketPage(browser, url=browser.current_url)
+        basket_page.open()
+        basket_page.verify_basket_page()
+    finally:
         browser.quit()
