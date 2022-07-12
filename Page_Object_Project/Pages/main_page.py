@@ -11,8 +11,9 @@ from .basket_page import BasketPage
 class MainPage(BasePage):
 
     def validate_main_page(self):
+        MAIN_PAGE = 'http://automationpractice.com/index.php'
         main_page_url = self.chrome.current_url
-        assert main_page_url == MainPageLoc.main_page_url_loc, 'The url of the main page does not match'
+        assert main_page_url == MAIN_PAGE, 'The url of the main page does not match'
 
     def open_login_page(self):
         time.sleep(3)
@@ -48,3 +49,15 @@ class MainPage(BasePage):
         close_field = WebDriverWait(self.chrome, 20).until(
             EC.element_to_be_clickable(MainPageLoc.cross_loc))
         close_field.click()
+
+    def open_dresses_page(self):
+        time.sleep(3)
+        go_to_dresses_link = WebDriverWait(self.chrome, 20).until(
+            EC.element_to_be_clickable(MainPageLoc.dresses_loc))
+        go_to_dresses_link.click()
+
+    def contact_us_page(self):
+        time.sleep(3)
+        go_to_contact_us_page = WebDriverWait(self.chrome, 20).until(
+            EC.element_to_be_clickable(MainPageLoc.contact_us_loc))
+        go_to_contact_us_page.click()

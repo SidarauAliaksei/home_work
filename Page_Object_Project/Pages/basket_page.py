@@ -17,9 +17,11 @@ class BasketPage(BasePage):
             BasketPageLoc.check_faded_short_sleeve_t_shirts_in_basket_loc), "Element is absent"
 
     def validate_basket_page(self):
+        BASKET_URL = 'http://automationpractice.com/index.php?controller=order'
         basket_page_url = self.chrome.current_url
-        assert basket_page_url == BasketPageLoc.basket_url_loc, 'The url of the basket page does not match'
+        assert basket_page_url == BASKET_URL, 'The url of the basket page does not match'
 
     def verify_basket_page(self):
+
         basket_page_text = self.chrome.find_element(*BasketPageLoc.basket_info_loc).text
         assert basket_page_text == 'Your shopping cart'
