@@ -4,13 +4,13 @@ from selenium import webdriver
 from Pages.main_page import MainPage
 from Pages.login_page import LoginPage
 from Pages.basket_page import BasketPage
-from Pages.contact_us_page import ContactUsPage
+# from Pages.contact_us_page import ContactUsPage
 
 
 @pytest.fixture
 def open_browser():
     global browser
-    browser = webdriver.Chrome('C:/Users/wwwba/PycharmProjects/selenium_test/chromedriver.exe')
+    browser = webdriver.Chrome('C:/Users/Aliaksei Sidarau/PycharmProjects/selenium_test/chromedriver.exe')
     browser.implicitly_wait(5)
 
 
@@ -102,19 +102,19 @@ def test_check_validate_main_page(open_browser):
 
 
 #
-def test_open_contact_us_page(open_browser):
-    link = 'http://automationpractice.com/index.php'
-    main_page = MainPage(browser, link)
-    try:
-        main_page.open()
-        main_page.contact_us_page()
-        contact_us_page = \
-            ContactUsPage(browser, url=browser.current_url)
-        contact_us_page.check_customer_service_contact_us()
-
-    finally:
-        time.sleep(3)
-        browser.quit()
+# def test_open_contact_us_page(open_browser):
+#     link = 'http://automationpractice.com/index.php'
+#     main_page = MainPage(browser, link)
+#     try:
+#         main_page.open()
+#         main_page.contact_us_page()
+#         contact_us_page = \
+#             ContactUsPage(browser, url=browser.current_url)
+#         contact_us_page.check_customer_service_contact_us()
+#
+#     finally:
+#         time.sleep(3)
+#         browser.quit()
 
 
 def test_guest_can_open_basket_page(open_browser):
